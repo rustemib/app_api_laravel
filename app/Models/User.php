@@ -20,7 +20,6 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    // $fillable - массив, который определяет, какие поля модели можно заполнить с помощью mass-assignment.
     protected $fillable = [
         'name',
         'email',
@@ -33,7 +32,6 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    // $hidden - массив, который определяет, какие поля должны быть скрыты при преобразовании модели в массив или JSON.
     protected $hidden = [
         'password',
         'remember_token',
@@ -44,7 +42,6 @@ class User extends Authenticatable
      *
      * @var array<string, string>
      */
-    // $casts - массив, который определяет, какие поля должны быть приведены к определенному типу при извлечении из базы данных.
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',

@@ -16,18 +16,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 //Этот роут обрабатывает HTTP POST-запросы по адресу /register.
-// Запросы обрабатываются методом register класса AuthController
-// используется для создания новых пользователей.
 Route::post('/register', [AuthController::class, 'register']);
 
-//Этот роут обрабатывает POST-запросы по адресу /login.
-// Запросы обрабатываются методом login класса AuthController
 // используется для аутентификации пользователей.
 Route::post('/login', [AuthController::class, 'login']);
 
-//Этот роут обрабатывает POST-запросы по адресу /logout в контексте группы роутов,
-// защищенных middleware auth:sanctum. Middleware проверяет, что пользователь аутентифицирован,
-// прежде чем разрешить доступ к этому роуту. Запросы обрабатываются методом logout класса AuthController
 // используется для выхода пользователя из системы.
 Route::middleware('auth:sanctum')->group(function(){
     Route::post('/logout', [AuthController::class, 'logout']);
