@@ -40,7 +40,7 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-        //api испоьзуется для аутентификации апи.
+        //api испоьзуется для аутентификации апи. после установки санктума
         'api' => [
             'driver' => 'sanctum',
             'provider' => 'users',

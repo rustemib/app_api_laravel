@@ -7,7 +7,7 @@ use App\Models\ProductProperty;
 
 class PropertyController extends Controller
 {
-    //вывод всех опций по запросу /properties
+    //Вывод всех опций по запросу /properties
     public function index()
     {
         return ProductProperty::all();
