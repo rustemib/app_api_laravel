@@ -7,12 +7,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable
+class User extends Authenticatable implements JWTSubject
 {
-    // HasApiTokens - трейт, используемый для работы с токенами API с помощью Laravel Sanctum.
-    // HasFactory - трейт, используемый для работы с фабриками в Laravel для генерации тестовых данных.
-    // Notifiable - трейт, используемый для работы с уведомлениями в Laravel.
+
     use HasApiTokens, HasFactory, Notifiable;
 
     /**
@@ -46,4 +45,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims()
+    {
+        return [];   }
 }

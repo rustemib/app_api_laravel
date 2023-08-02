@@ -42,9 +42,10 @@ return [
         ],
         //api испоьзуется для аутентификации апи. после установки санктума
         'api' => [
-            'driver' => 'sanctum',
+            'driver' => 'jwt',
             'provider' => 'users',
-            'hash' => false,
+//            'driver' => 'sanctum',
+//            'hash' => false,
         ],
     ],
 
