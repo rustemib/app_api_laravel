@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Property;
+namespace App\Http\Requests\ProductProperty;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -22,7 +22,10 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'product_id'=>'required',
+            'color1'=>'nullable',
+            'color2'=>'nullable',
+            'brand'=>'nullable',
         ];
     }
 }

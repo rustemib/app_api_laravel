@@ -3,12 +3,13 @@
 namespace App\Http\Controllers\Swagger;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 /**
  * @OA\Post(
- *     path="/api/products",
- *     summary="Create Product",
- *     tags={"Product"},
+ *     path="/api/properties",
+ *     summary="Create ProductProperty",
+ *     tags={"Property"},
  *     security={{ "bearerAuth": {} }},
  *
  *     @OA\RequestBody(
@@ -16,17 +17,19 @@ use App\Http\Controllers\Controller;
  *              allOf={
  *                  @OA\Schema(
  *                      @OA\Property(property="", type="array", @OA\Items(
- *                          @OA\Property(property="name", type="string"),
- *                          @OA\Property(property="price", type="integer"),
- *                          @OA\Property(property="quantity", type="integer"),
+ *                          @OA\Property(property="product_id", type="integer"),
+ *                          @OA\Property(property="color1", type="string"),
+ *                          @OA\Property(property="color2", type="string"),
+ *                          @OA\Property(property="brand", type="string"),
  *                      )),
  *                  )
  *              },
  *              example={
  *
- *                      "name": "Some Name",
- *                      "price": 30,
- *                      "quantity": 20
+ *                      "product_id": 3,
+ *                      "color1": "Red",
+ *                      "color2": "White",
+ *                      "brand": "Nike"
  *
  *              }
  *          ),
@@ -38,18 +41,19 @@ use App\Http\Controllers\Controller;
  *         @OA\JsonContent(
  *              @OA\Property(property="data", type="object",
  *                  @OA\Property(property="id", type="integer", example=1),
- *                  @OA\Property(property="name", type="string", example="Some name"),
- *                  @OA\Property(property="price", type="integer", example=100),
- *                  @OA\Property(property="quantity", type="integer", example=20),
+ *                  @OA\Property(property="product_id", type="integer", example=2),
+ *                  @OA\Property(property="color1", type="string", example="Red"),
+ *                  @OA\Property(property="color2", type="string", example="Black"),
+ *                  @OA\Property(property="brand", type="string", example="Nike"),
  *              ),
  *         ),
  *     ),
  * ),
  *
  * @OA\Get(
- *     path="/api/products",
- *     summary="All Products",
- *     tags={"Product"},
+ *     path="/api/properties",
+ *     summary="All Properties",
+ *     tags={"Property"},
  *     security={{ "bearerAuth": {} }},
  *
  *
@@ -59,9 +63,10 @@ use App\Http\Controllers\Controller;
  *         @OA\JsonContent(
  *              @OA\Property(property="data", type="array", @OA\Items(
  *                  @OA\Property(property="id", type="integer", example=1),
- *                  @OA\Property(property="name", type="string", example="Some name"),
- *                  @OA\Property(property="price", type="integer", example=100),
- *                  @OA\Property(property="quantity", type="integer", example=20),
+ *                  @OA\Property(property="product_id", type="integer", example="3"),
+ *                  @OA\Property(property="color2", type="string", example="Red"),
+ *                  @OA\Property(property="color1", type="string", example="Yello"),
+ *                  @OA\Property(property="brand", type="string", example="Adidas"),
  *              )),
  *         ),
  *     ),
@@ -70,15 +75,15 @@ use App\Http\Controllers\Controller;
  *
  *
  * @OA\Get(
- *     path="/api/products/{product}",
- *     summary="Product",
- *     tags={"Product"},
+ *     path="/api/properties/{property}",
+ *     summary="Property",
+ *     tags={"Property"},
  *     security={{ "bearerAuth": {} }},
  *
  *     @OA\Parameter(
- *         description="Product ID",
+ *         description="Property ID",
  *         in="path",
- *         name="product",
+ *         name="property",
  *         required=true,
  *         example=1,
  *
@@ -90,9 +95,10 @@ use App\Http\Controllers\Controller;
  *         @OA\JsonContent(
  *              @OA\Property(property="data", type="object",
  *                  @OA\Property(property="id", type="integer", example=1),
- *                  @OA\Property(property="name", type="string", example="Some name"),
- *                  @OA\Property(property="price", type="integer", example=100),
- *                  @OA\Property(property="quantity", type="integer", example=20),
+ *                  @OA\Property(property="product_id", type="integer", example="3"),
+ *                  @OA\Property(property="color2", type="string", example="Red"),
+ *                  @OA\Property(property="color1", type="string", example="Yello"),
+ *                  @OA\Property(property="brand", type="string", example="Adidas"),
  *              ),
  *         ),
  *     ),
@@ -100,15 +106,15 @@ use App\Http\Controllers\Controller;
  *
  *
  * @OA\Patch(
- *     path="/api/products/{product}",
- *     summary="Product Update",
- *     tags={"Product"},
+ *     path="/api/properties/{property}",
+ *     summary="Property Update",
+ *     tags={"Property"},
  *     security={{ "bearerAuth": {} }},
  *
  *     @OA\Parameter(
- *         description="Product ID",
+ *         description="Property ID",
  *         in="path",
- *         name="product",
+ *         name="property",
  *         required=true,
  *         example=2,
  *
@@ -118,9 +124,10 @@ use App\Http\Controllers\Controller;
  *          @OA\JsonContent(
  *              allOf={
  *                  @OA\Schema(
- *                      @OA\Property(property="name", type="string", example="Some edit name"),
- *                      @OA\Property(property="price", type="integer", example=99),
- *                      @OA\Property(property="quantity", type="integer", example=21),
+ *                      @OA\Property(property="product_id", type="integer", example="3"),
+ *                      @OA\Property(property="color2", type="string", example="Red"),
+ *                      @OA\Property(property="color1", type="string", example="Yello"),
+ *                      @OA\Property(property="brand", type="string", example="Adidas"),
  *                  )
  *              }
  *          ),
@@ -141,15 +148,15 @@ use App\Http\Controllers\Controller;
  * ),
  *
  * @OA\Delete(
- *     path="/api/products/{product}",
- *     summary="Product delete",
- *     tags={"Product"},
+ *     path="/api/properties/{property}",
+ *     summary="Property delete",
+ *     tags={"Property"},
  *     security={{ "bearerAuth": {} }},
  *
  *     @OA\Parameter(
- *         description="Product ID",
+ *         description="Property ID",
  *         in="path",
- *         name="product",
+ *         name="property",
  *         required=true,
  *         example=1,
  *
@@ -164,7 +171,7 @@ use App\Http\Controllers\Controller;
  *     ),
  * ),
  */
-class ProductController extends Controller
+class PropertyController extends Controller
 {
-
+    //
 }

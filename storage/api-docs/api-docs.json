@@ -110,7 +110,7 @@
                 "tags": [
                     "Product"
                 ],
-                "summary": "create",
+                "summary": "Create Product",
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -316,6 +316,337 @@
                                             "quantity": {
                                                 "type": "integer",
                                                 "example": 21
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Some name"
+                                                },
+                                                "price": {
+                                                    "type": "integer",
+                                                    "example": 100
+                                                },
+                                                "quantity": {
+                                                    "type": "integer",
+                                                    "example": 20
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/properties": {
+            "get": {
+                "tags": [
+                    "Property"
+                ],
+                "summary": "All Properties",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "product_id": {
+                                                        "type": "integer",
+                                                        "example": "3"
+                                                    },
+                                                    "color2": {
+                                                        "type": "string",
+                                                        "example": "Red"
+                                                    },
+                                                    "color1": {
+                                                        "type": "string",
+                                                        "example": "Yello"
+                                                    },
+                                                    "brand": {
+                                                        "type": "string",
+                                                        "example": "Adidas"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Property"
+                ],
+                "summary": "Create ProductProperty",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "properties": {
+                                            "": {
+                                                "type": "array",
+                                                "items": {
+                                                    "properties": {
+                                                        "product_id": {
+                                                            "type": "integer"
+                                                        },
+                                                        "color1": {
+                                                            "type": "string"
+                                                        },
+                                                        "color2": {
+                                                            "type": "string"
+                                                        },
+                                                        "brand": {
+                                                            "type": "string"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                }
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                ]
+                            },
+                            "example": {
+                                "product_id": 3,
+                                "color1": "Red",
+                                "color2": "White",
+                                "brand": "Nike"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "product_id": {
+                                                    "type": "integer",
+                                                    "example": 2
+                                                },
+                                                "color1": {
+                                                    "type": "string",
+                                                    "example": "Red"
+                                                },
+                                                "color2": {
+                                                    "type": "string",
+                                                    "example": "Black"
+                                                },
+                                                "brand": {
+                                                    "type": "string",
+                                                    "example": "Nike"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/properties/{property}": {
+            "get": {
+                "tags": [
+                    "Property"
+                ],
+                "summary": "Property",
+                "parameters": [
+                    {
+                        "name": "property",
+                        "in": "path",
+                        "description": "Property ID",
+                        "required": true,
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "product_id": {
+                                                    "type": "integer",
+                                                    "example": "3"
+                                                },
+                                                "color2": {
+                                                    "type": "string",
+                                                    "example": "Red"
+                                                },
+                                                "color1": {
+                                                    "type": "string",
+                                                    "example": "Yello"
+                                                },
+                                                "brand": {
+                                                    "type": "string",
+                                                    "example": "Adidas"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Property"
+                ],
+                "summary": "Property delete",
+                "parameters": [
+                    {
+                        "name": "property",
+                        "in": "path",
+                        "description": "Property ID",
+                        "required": true,
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "done"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "patch": {
+                "tags": [
+                    "Property"
+                ],
+                "summary": "Property Update",
+                "parameters": [
+                    {
+                        "name": "property",
+                        "in": "path",
+                        "description": "Property ID",
+                        "required": true,
+                        "example": 2
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "properties": {
+                                            "product_id": {
+                                                "type": "integer",
+                                                "example": "3"
+                                            },
+                                            "color2": {
+                                                "type": "string",
+                                                "example": "Red"
+                                            },
+                                            "color1": {
+                                                "type": "string",
+                                                "example": "Yello"
+                                            },
+                                            "brand": {
+                                                "type": "string",
+                                                "example": "Adidas"
                                             }
                                         },
                                         "type": "object"

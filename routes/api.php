@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Product\ProductController;
-use App\Http\Controllers\Property\PropertyController;
+use App\Http\Controllers\ProductProperty\ProductPropertyController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,6 +28,6 @@ Route::group(['middleware' => 'api', 'prefix' => 'auth'], function () {
 
 Route::middleware('auth:sanctum')->group(function () {
 
-    Route::apiResource('properties', PropertyController::class);
+    Route::apiResource('properties', ProductPropertyController::class);
 });
 Route::apiResource('products', ProductController::class)->middleware('jwt.auth');
