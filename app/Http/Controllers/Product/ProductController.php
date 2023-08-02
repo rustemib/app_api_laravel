@@ -11,15 +11,11 @@ class ProductController extends Controller
 {
     public function index(Request $request)
     {
-        // Создаем запрос на получение всех продуктов
         $query = Product::query();
 
-        // Получаем фильтры из параметров запроса
         $filters = $request->get('properties');
 
-        // Если фильтры были переданы
         if($filters){
-            // Для каждого свойства фильтрации
             foreach($filters as $property => $values){
                 // Мы добавляем условие в запрос: продукты должны иметь свойства, соответствующие фильтру
                 $query->whereHas('properties', function ($query) use ($property, $values) {
@@ -32,7 +28,6 @@ class ProductController extends Controller
             }
         }
 
-        // Возвращаем результаты запроса, разделенные на страницы по 40 продуктов
         return $query->paginate(40);
     }
 

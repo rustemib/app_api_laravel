@@ -21,7 +21,6 @@ class LoginRequest extends FormRequest
      */
     public function rules(): array
     {
-        // валидация данных на вход пользователя
         return [
             'login' => 'required|string',
             'password' => 'required|string',
