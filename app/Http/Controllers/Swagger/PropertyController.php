@@ -38,6 +38,7 @@ use Illuminate\Http\Request;
  *     @OA\Response(
  *         response=200,
  *         description="OK",
+ *         security={{ "bearerAuth": {} }},
  *         @OA\JsonContent(
  *              @OA\Property(property="data", type="object",
  *                  @OA\Property(property="id", type="integer", example=1),
