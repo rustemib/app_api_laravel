@@ -38,7 +38,6 @@ use Illuminate\Http\Request;
  *     @OA\Response(
  *         response=200,
  *         description="OK",
- *         security={{ "bearerAuth": {} }},
  *         @OA\JsonContent(
  *              @OA\Property(property="data", type="object",
  *                  @OA\Property(property="id", type="integer", example=1),
@@ -55,7 +54,6 @@ use Illuminate\Http\Request;
  *     path="/api/properties",
  *     summary="All Properties",
  *     tags={"Property"},
- *     security={{ "bearerAuth": {} }},
  *
  *
  *     @OA\Response(
@@ -172,7 +170,7 @@ use Illuminate\Http\Request;
  *     ),
  * ),
  */
-class PropertyController extends Controller
+class ProductPropertyController extends Controller
 {
     //
 }

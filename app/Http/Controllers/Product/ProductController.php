@@ -3,22 +3,32 @@
 namespace App\Http\Controllers\Product;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Product\FilterRequest;
 use App\Http\Requests\Product\StoreRequest;
 use App\Http\Requests\Product\UpdateRequest;
 use App\Http\Resources\Product\ProductResource;
 use App\Models\Product;
-
 
 class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(FilterRequest $request)
     {
-        $products = Product::paginate(40);
+        $query = Product::query();
+
+        $properties = $request->input('properties', []);
+        foreach ($properties as $property => $values) {
+            $query->whereHas('properties', function ($query) use ($property, $values) {
+                $query->where('name', $property)->whereIn('value', $values);
+            });
+        }
+
+        $products = $query->paginate(40);
         return ProductResource::collection($products);
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -63,7 +73,6 @@ class ProductController extends Controller
     {
         $data = $request->validated();
         $product->update($data);
-//        $product = $product->fresh();
         return ProductResource::make($product);
 
     }
