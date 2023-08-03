@@ -19,7 +19,7 @@
                                 "properties": {
                                     "email_or_phone": {
                                         "type": "string",
-                                        "example": "user@user or +70000000000"
+                                        "example": "user@user.use or +70000000000"
                                     },
                                     "password": {
                                         "type": "string",

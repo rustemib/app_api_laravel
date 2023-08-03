@@ -12,7 +12,7 @@ use App\Http\Controllers\Controller;
  *
  *     @OA\RequestBody(
  *         @OA\JsonContent(
- *             @OA\Property(property="email_or_phone", type="string", example="user@user or +70000000000"),
+ *             @OA\Property(property="email_or_phone", type="string", example="user@user.use or +70000000000"),
  *             @OA\Property(property="password", type="string", example="Password1!$")
  *         )
  *     ),
