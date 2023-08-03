@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
-
+use Illuminate\Support\Facades\Log;
+use Illuminate\Http\Request;
 class AuthController extends Controller
 {
     /**
@@ -23,10 +24,14 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function login(LoginRequest $request)
+    public function login(Request $request)
     {
         $input = $request->get('email_or_phone');
         $fieldType = filter_var($input, FILTER_VALIDATE_EMAIL) ? 'email' : 'phone';
+
+        Log::info("Input value: $input");
+        $fieldType = filter_var($input, FILTER_VALIDATE_EMAIL) ? 'email' : 'phone';
+
 
         if (! $token = auth('api')->attempt([$fieldType => $input, 'password' => $request->get('password')])) {
             return response()->json(['error' => 'Unauthorized'], 401);
@@ -34,6 +39,8 @@ class AuthController extends Controller
 
         return $this->respondWithToken($token);
     }
+
+
 
 
     /**
