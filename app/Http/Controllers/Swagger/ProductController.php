@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Swagger;
 use App\Http\Controllers\Controller;
 
 /**
+
  * @OA\Post(
  *     path="/api/products",
  *     summary="Create Product",
@@ -52,6 +53,24 @@ use App\Http\Controllers\Controller;
  *     tags={"Product"},
  *     security={{ "bearerAuth": {} }},
  *
+ *     @OA\Parameter(
+ *         name="properties[color1]",
+ *         in="query",
+ *         description="Filter by color1",
+ *         @OA\Schema(type="string"),
+ *     ),
+ *     @OA\Parameter(
+ *         name="properties[color2]",
+ *         in="query",
+ *         description="Filter by color2",
+ *         @OA\Schema(type="string"),
+ *     ),
+ *     @OA\Parameter(
+ *         name="properties[brand]",
+ *         in="query",
+ *         description="Filter by brand",
+ *         @OA\Schema(type="string"),
+ *     ),
  *
  *     @OA\Response(
  *         response=200,
@@ -163,6 +182,8 @@ use App\Http\Controllers\Controller;
  *         ),
  *     ),
  * ),
+ *
+ *
  */
 class ProductController extends Controller
 {

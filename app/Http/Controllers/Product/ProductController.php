@@ -21,16 +21,22 @@ class ProductController extends Controller
         $properties = $request->input('properties', []);
         foreach ($properties as $property => $values) {
             $query->whereHas('properties', function ($query) use ($property, $values) {
-                $query->where('name', $property)->whereIn('value', $values);
+                if (is_array($values)) {
+                    $query->whereIn($property, $values);
+                } else {
+                    $query->where($property, $values);
+                }
             });
         }
 
         $products = $query->paginate(40);
         return ProductResource::collection($products);
+
+
     }
 
 
-    /**
+        /**
      * Show the form for creating a new resource.
      */
     public function create()

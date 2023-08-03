@@ -62,6 +62,32 @@
                     "Product"
                 ],
                 "summary": "All Products",
+                "parameters": [
+                    {
+                        "name": "properties[color1]",
+                        "in": "query",
+                        "description": "Filter by color1",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "properties[color2]",
+                        "in": "query",
+                        "description": "Filter by color2",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "properties[brand]",
+                        "in": "query",
+                        "description": "Filter by brand",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
