@@ -22,10 +22,10 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'product_id'=>'required',
-            'color1'=>'nullable',
-            'color2'=>'nullable',
-            'brand'=>'nullable',
+            'product_id'=>'integer|required',
+            'color1'=>'string|nullable',
+            'color2'=>'string|nullable',
+            'brand'=>'string|nullable'
         ];
     }
 }

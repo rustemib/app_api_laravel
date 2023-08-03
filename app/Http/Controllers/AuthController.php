@@ -28,15 +28,9 @@ class AuthController extends Controller
     {
         $input = $request->get('email_or_phone');
         $fieldType = filter_var($input, FILTER_VALIDATE_EMAIL) ? 'email' : 'phone';
-
-//        Log::info("Input value: $input");
-//        $fieldType = filter_var($input, FILTER_VALIDATE_EMAIL) ? 'email' : 'phone';
-
-
         if (! $token = auth('api')->attempt([$fieldType => $input, 'password' => $request->get('password')])) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
-
         return $this->respondWithToken($token);
     }
 

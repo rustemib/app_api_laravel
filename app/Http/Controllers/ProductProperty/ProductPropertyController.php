@@ -8,12 +8,14 @@ use App\Http\Resources\ProductProperty\ProductPropertyResource;
 use App\Models\ProductProperty;
 use Illuminate\Http\Request;
 use App\Http\Requests\ProductProperty\StoreRequest;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+
 class ProductPropertyController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): AnonymousResourceCollection
     {
         $properties = ProductProperty::all();
         return ProductPropertyResource::collection($properties);
@@ -30,7 +32,7 @@ class ProductPropertyController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreRequest $request)
+    public function store(StoreRequest $request): ProductPropertyResource
     {
         $data = $request->validated();
         $product = ProductProperty::create($data);
@@ -42,7 +44,7 @@ class ProductPropertyController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(ProductProperty $property)
+    public function show(ProductProperty $property): ProductPropertyResource
     {
         return ProductPropertyResource::make($property);
     }
@@ -58,7 +60,7 @@ class ProductPropertyController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateRequest $request, ProductProperty $property)
+    public function update(UpdateRequest $request, ProductProperty $property): ProductPropertyResource
     {
         $data = $request->validated();
         $property->update($data);
@@ -69,7 +71,7 @@ class ProductPropertyController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ProductProperty $property)
+    public function destroy(ProductProperty $property): \Illuminate\Http\JsonResponse
     {
         $property->delete();
         return response()->json([

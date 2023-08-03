@@ -8,13 +8,16 @@ use App\Http\Requests\Product\StoreRequest;
 use App\Http\Requests\Product\UpdateRequest;
 use App\Http\Resources\Product\ProductResource;
 use App\Models\Product;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+
 
 class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(FilterRequest $request)
+    const PAGINATION_COUNT = 40;
+    public function index(FilterRequest $request): AnonymousResourceCollection
     {
         $query = Product::query();
 
@@ -29,10 +32,8 @@ class ProductController extends Controller
             });
         }
 
-        $products = $query->paginate(40);
+        $products = $query->paginate(self::PAGINATION_COUNT);
         return ProductResource::collection($products);
-
-
     }
 
 
@@ -47,7 +48,7 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreRequest $request)
+    public function store(StoreRequest $request): ProductResource
     {
         $data = $request->validated();
         $product = Product::create($data);
@@ -59,7 +60,7 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Product $product)
+    public function show(Product $product): ProductResource
     {
         return ProductResource::make($product);
     }
@@ -75,7 +76,7 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateRequest $request, Product $product)
+    public function update(UpdateRequest $request, Product $product): ProductResource
     {
         $data = $request->validated();
         $product->update($data);
@@ -86,7 +87,7 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Product $product)
+    public function destroy(Product $product): \Illuminate\Http\JsonResponse
     {
         $product->delete();
         return response()->json([
