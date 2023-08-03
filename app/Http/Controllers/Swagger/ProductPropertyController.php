@@ -54,7 +54,7 @@ use Illuminate\Http\Request;
  *     path="/api/properties",
  *     summary="All Properties",
  *     tags={"Property"},
- *
+ *     security={{ "bearerAuth": {} }},
  *
  *     @OA\Response(
  *         response=200,

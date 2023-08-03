@@ -27,8 +27,6 @@ Route::group(['middleware' => 'api', 'prefix' => 'auth'], function () {
 });
 
 Route::middleware('auth:sanctum')->group(function () {
-
-
 });
 Route::apiResource('products', ProductController::class)->middleware('jwt.auth');
 Route::apiResource('properties', ProductPropertyController::class)->middleware('jwt.auth');
