@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductProperty\UpdateRequest;
 use App\Http\Resources\ProductProperty\ProductPropertyResource;
 use App\Models\ProductProperty;
-use Illuminate\Http\Request;
+use App\Services\PropertyService;
 use App\Http\Requests\ProductProperty\StoreRequest;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
@@ -15,9 +15,15 @@ class ProductPropertyController extends Controller
     /**
      * Display a listing of the resource.
      */
+    protected $propertyService;
+
+    public function __construct(PropertyService $propertyService)
+    {
+        $this->propertyService = $propertyService;
+    }
     public function index(): AnonymousResourceCollection
     {
-        $properties = ProductProperty::all();
+        $properties = $this->propertyService->getAll();
         return ProductPropertyResource::collection($properties);
     }
 
@@ -34,10 +40,8 @@ class ProductPropertyController extends Controller
      */
     public function store(StoreRequest $request): ProductPropertyResource
     {
-        $data = $request->validated();
-        $product = ProductProperty::create($data);
-
-        return ProductPropertyResource::make($product);
+       $property = $this->propertyService->store($request);
+       return ProductPropertyResource::make($property);
 
     }
 
@@ -62,8 +66,7 @@ class ProductPropertyController extends Controller
      */
     public function update(UpdateRequest $request, ProductProperty $property): ProductPropertyResource
     {
-        $data = $request->validated();
-        $property->update($data);
+        $this->propertyService->update($request, $property);
         return ProductPropertyResource::make($property);
 
     }
@@ -73,7 +76,7 @@ class ProductPropertyController extends Controller
      */
     public function destroy(ProductProperty $property): \Illuminate\Http\JsonResponse
     {
-        $property->delete();
+        $this->propertyService->delete($property);
         return response()->json([
             'message'=>'done'
         ]);

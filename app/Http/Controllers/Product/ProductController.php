@@ -8,6 +8,7 @@ use App\Http\Requests\Product\StoreRequest;
 use App\Http\Requests\Product\UpdateRequest;
 use App\Http\Resources\Product\ProductResource;
 use App\Models\Product;
+use App\Services\ProductService;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 
@@ -16,23 +17,16 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
+    protected $productService;
+
+    public function __construct(ProductService $productService)
+    {
+        $this->productService = $productService;
+    }
     const PAGINATION_COUNT = 40;
     public function index(FilterRequest $request): AnonymousResourceCollection
     {
-        $query = Product::query();
-
-        $properties = $request->input('properties', []);
-        foreach ($properties as $property => $values) {
-            $query->whereHas('properties', function ($query) use ($property, $values) {
-                if (is_array($values)) {
-                    $query->whereIn($property, $values);
-                } else {
-                    $query->where($property, $values);
-                }
-            });
-        }
-
-        $products = $query->paginate(self::PAGINATION_COUNT);
+        $products = $this->productService->getProducts($request->input('properties', []), self::PAGINATION_COUNT);
         return ProductResource::collection($products);
     }
 
@@ -50,10 +44,8 @@ class ProductController extends Controller
      */
     public function store(StoreRequest $request): ProductResource
     {
-        $data = $request->validated();
-        $product = Product::create($data);
-
-        return ProductResource::make($product);
+       $product = $this->productService->storeProduct($request);
+       return ProductResource::make($product);
 
     }
 
@@ -78,8 +70,8 @@ class ProductController extends Controller
      */
     public function update(UpdateRequest $request, Product $product): ProductResource
     {
-        $data = $request->validated();
-        $product->update($data);
+
+        $this->productService->updateProduct($request, $product);
         return ProductResource::make($product);
 
     }
@@ -89,7 +81,7 @@ class ProductController extends Controller
      */
     public function destroy(Product $product): \Illuminate\Http\JsonResponse
     {
-        $product->delete();
+        $this->productService->deleteProduct($product);
         return response()->json([
             'message'=>'done'
         ]);
