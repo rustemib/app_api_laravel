@@ -7,36 +7,40 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 class ProductService
 {
-    public function getProducts($properties, $paginationCount): LengthAwarePaginator
+    public function get($properties, $paginationCount): LengthAwarePaginator
     {
         $query = Product::query();
 
-        foreach ($properties as $property => $values) {
-            $query->whereHas('properties', function ($query) use ($property, $values) {
+        foreach ($properties as $attributeName => $values) {
+            $query->whereHas('attributeValues', function ($query) use ($attributeName, $values) {
+                $query->whereHas('attribute', function ($query) use ($attributeName) {
+                    $query->where('name', $attributeName);
+                });
+
                 if (is_array($values)) {
-                    $query->whereIn($property, $values);
+                    $query->whereIn('value', $values);
                 } else {
-                    $query->where($property, $values);
+                    $query->where('value', $values);
                 }
             });
         }
 
-        return $query->paginate($paginationCount);
+        return $query->with('attributeValues.attribute')->paginate($paginationCount);
     }
 
 
-    public function storeProduct($request): Product
+    public function store($request): Product
     {
         return Product::create($request->validated());
     }
 
-    public function updateProduct($request, $product): Product
+    public function update($request, $product): Product
     {
         $product->update($request->validated());
         return $product;
     }
 
-    public function deleteProduct($product): bool
+    public function delete($product): bool
     {
         return $product->delete();
     }

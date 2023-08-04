@@ -17,7 +17,7 @@ class ProductPropertyFactory extends Factory
      */
     public function definition(): array
     {
-        // Возвращает массив с определениями для создания нового экземпляра модели ProductProperty.
+        // Возвращает массив с определениями для создания нового экземпляра модели Attribute.
         return [
             // 'product_id' - ID товара, выбирается случайным образом из существующих ID товаров в базе данных.
             'product_id' => \App\Models\Product::inRandomOrder()->first()->id,

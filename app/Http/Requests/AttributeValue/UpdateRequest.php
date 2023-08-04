@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\ProductProperty;
+namespace App\Http\Requests\AttributeValue;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreRequest extends FormRequest
+class UpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,10 +22,9 @@ class StoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'product_id'=>'integer|required',
-            'color1'=>'string|nullable',
-            'color2'=>'string|nullable',
-            'brand'=>'string|nullable'
+            'attribute_id' => 'required|integer',
+            'product_id' => 'required|integer',
+            'value' => 'required|string',
         ];
     }
 }

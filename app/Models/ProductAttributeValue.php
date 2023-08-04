@@ -5,14 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ProductProperty extends Model
+class ProductAttributeValue extends Model
 {
     use HasFactory;
+    protected $table = 'product_attribute_values';
     protected $guarded = false;
-    protected $fillable = ['color1', 'color2', 'brand', 'product_id'];
+    protected $fillable = ['product_id', 'attribute_id', 'value'];
 
     public function product()
     {
         return $this->belongsTo(Product::class);
+    }
+
+    public function attribute()
+    {
+        return $this->belongsTo(Attribute::class);
     }
 }

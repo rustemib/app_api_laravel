@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\ProductProperty;
+namespace App\Http\Requests\Attribute;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -11,7 +11,7 @@ class UpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return true; // Или другая логика авторизации
     }
 
     /**
@@ -22,10 +22,19 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'product_id'=>'integer|required',
-            'color1'=>'string|nullable',
-            'color2'=>'string|nullable',
-            'brand'=>'string|nullable'
+            'name' => 'required|string|max:255',
+        ];
+    }
+
+    /**
+     * Get custom messages for validator errors.
+     *
+     * @return array
+     */
+    public function messages(): array
+    {
+        return [
+            'name.required' => 'The name field is required.',
         ];
     }
 }

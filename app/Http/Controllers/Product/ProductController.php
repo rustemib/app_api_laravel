@@ -26,7 +26,7 @@ class ProductController extends Controller
     const PAGINATION_COUNT = 40;
     public function index(FilterRequest $request): AnonymousResourceCollection
     {
-        $products = $this->productService->getProducts($request->input('properties', []), self::PAGINATION_COUNT);
+        $products = $this->productService->get($request->input('properties', []), self::PAGINATION_COUNT);
         return ProductResource::collection($products);
     }
 
@@ -44,7 +44,7 @@ class ProductController extends Controller
      */
     public function store(StoreRequest $request): ProductResource
     {
-       $product = $this->productService->storeProduct($request);
+       $product = $this->productService->store($request);
        return ProductResource::make($product);
 
     }
@@ -71,7 +71,7 @@ class ProductController extends Controller
     public function update(UpdateRequest $request, Product $product): ProductResource
     {
 
-        $this->productService->updateProduct($request, $product);
+        $this->productService->update($request, $product);
         return ProductResource::make($product);
 
     }
@@ -81,7 +81,7 @@ class ProductController extends Controller
      */
     public function destroy(Product $product): \Illuminate\Http\JsonResponse
     {
-        $this->productService->deleteProduct($product);
+        $this->productService->delete($product);
         return response()->json([
             'message'=>'done'
         ]);
