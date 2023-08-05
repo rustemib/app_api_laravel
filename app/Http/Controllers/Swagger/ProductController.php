@@ -54,21 +54,21 @@ use App\Http\Controllers\Controller;
  *     security={{ "bearerAuth": {} }},
  *
  *     @OA\Parameter(
- *         name="properties[color1]",
+ *         name="attributes[name][]",
  *         in="query",
- *         description="Filter by color1",
+ *         description="Attribute name1",
  *         @OA\Schema(type="string"),
  *     ),
  *     @OA\Parameter(
- *         name="properties[color2]",
+ *         name="attributes[name][]",
  *         in="query",
- *         description="Filter by color2",
+ *         description="Attribute name2",
  *         @OA\Schema(type="string"),
  *     ),
  *     @OA\Parameter(
- *         name="properties[brand]",
+ *         name="attributes[name][]",
  *         in="query",
- *         description="Filter by brand",
+ *         description="Attribute name3",
  *         @OA\Schema(type="string"),
  *     ),
  *

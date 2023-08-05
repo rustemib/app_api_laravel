@@ -641,25 +641,25 @@
                 "summary": "All Products",
                 "parameters": [
                     {
-                        "name": "properties[color1]",
+                        "name": "attributes[name][]",
                         "in": "query",
-                        "description": "Filter by color1",
+                        "description": "Attribute name1",
                         "schema": {
                             "type": "string"
                         }
                     },
                     {
-                        "name": "properties[color2]",
+                        "name": "attributes[name][]",
                         "in": "query",
-                        "description": "Filter by color2",
+                        "description": "Attribute name2",
                         "schema": {
                             "type": "string"
                         }
                     },
                     {
-                        "name": "properties[brand]",
+                        "name": "attributes[name][]",
                         "in": "query",
-                        "description": "Filter by brand",
+                        "description": "Attribute name3",
                         "schema": {
                             "type": "string"
                         }

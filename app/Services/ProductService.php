@@ -2,30 +2,33 @@
 
 namespace App\Services;
 
+use App\Exceptions\ErrorMessages;
 use App\Models\Product;
 use Illuminate\Pagination\LengthAwarePaginator;
 
+
 class ProductService
 {
-    public function get($properties, $paginationCount): LengthAwarePaginator
+    public function get($attributes, $paginationCount): LengthAwarePaginator
     {
+
         $query = Product::query();
 
-        foreach ($properties as $attributeName => $values) {
-            $query->whereHas('attributeValues', function ($query) use ($attributeName, $values) {
-                $query->whereHas('attribute', function ($query) use ($attributeName) {
-                    $query->where('name', $attributeName);
+        if (isset($attributes['name'])) {
+            $query->whereHas('attributeValues', function ($query) use ($attributes) {
+                $query->whereHas('attribute', function ($query) use ($attributes) {
+                    $query->where('name', $attributes['name']);
                 });
-
-                if (is_array($values)) {
-                    $query->whereIn('value', $values);
-                } else {
-                    $query->where('value', $values);
-                }
             });
         }
 
-        return $query->with('attributeValues.attribute')->paginate($paginationCount);
+        $products = $query->with('attributeValues.attribute')->paginate($paginationCount);
+
+        if ($products->isEmpty() && isset($attributes['name'])) {
+            throw new \Exception(ErrorMessages::ATTRIBUTE_NOT_FOUND);
+        }
+
+        return $products;
     }
 
 

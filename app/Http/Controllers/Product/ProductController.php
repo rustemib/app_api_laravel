@@ -26,12 +26,14 @@ class ProductController extends Controller
     const PAGINATION_COUNT = 40;
     public function index(FilterRequest $request): AnonymousResourceCollection
     {
-        $products = $this->productService->get($request->input('properties', []), self::PAGINATION_COUNT);
+
+        $attributes = $request->input('attributes');
+        $products = $this->productService->get($attributes, self::PAGINATION_COUNT);
+
         return ProductResource::collection($products);
     }
 
-
-        /**
+     /**
      * Show the form for creating a new resource.
      */
     public function create()
