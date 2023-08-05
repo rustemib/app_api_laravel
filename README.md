@@ -25,14 +25,14 @@
 
 ![Swagger](2.png)
 
-### Products
+### Attribute
 
 ![Swagger](3.png)
 
-### Product Filter
-
-![Swagger](6.png)
-
-### Properties
+### Attribute Values
 
 ![Swagger](4.png)
+
+### Products
+
+![Swagger](9.png)
