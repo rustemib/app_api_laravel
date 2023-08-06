@@ -22,8 +22,8 @@ class FilterRequest extends FormRequest
     public function rules()
     {
         return [
-            'attributes' => 'required|array',
-            'attributes.*' => 'array',
+//            'attributes' => 'required|array',
+//            'attributes.*' => 'array',
             'attributes.*.*' => 'string'
         ];
     }

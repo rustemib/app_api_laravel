@@ -47,6 +47,7 @@ use App\Http\Controllers\Controller;
  *     ),
  * ),
  *
+ *
  * @OA\Get(
  *     path="/api/products",
  *     summary="All Products",
@@ -54,21 +55,21 @@ use App\Http\Controllers\Controller;
  *     security={{ "bearerAuth": {} }},
  *
  *     @OA\Parameter(
- *         name="attributes[name][]",
+ *         name="attributes[test][]",
  *         in="query",
- *         description="Attribute name1",
+ *         description="Values for attribute with name attrName1",
+ *         @OA\Schema(type="string"),
+ *     ),
+ *     @OA\Parameter(
+ *         name="attributes[test][]",
+ *         in="query",
+ *         description="Values for attribute with name attrName2",
  *         @OA\Schema(type="string"),
  *     ),
  *     @OA\Parameter(
  *         name="attributes[name][]",
  *         in="query",
- *         description="Attribute name2",
- *         @OA\Schema(type="string"),
- *     ),
- *     @OA\Parameter(
- *         name="attributes[name][]",
- *         in="query",
- *         description="Attribute name3",
+ *         description="Values for attribute with name attrName3",
  *         @OA\Schema(type="string"),
  *     ),
  *
@@ -85,8 +86,6 @@ use App\Http\Controllers\Controller;
  *         ),
  *     ),
  * ),
- *
- *
  *
  * @OA\Get(
  *     path="/api/products/{product}",

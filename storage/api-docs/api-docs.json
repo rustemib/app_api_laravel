@@ -641,9 +641,17 @@
                 "summary": "All Products",
                 "parameters": [
                     {
-                        "name": "attributes[name][]",
+                        "name": "attributes[test][]",
                         "in": "query",
-                        "description": "Attribute name1",
+                        "description": "Values for attribute with name attrName1",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "attributes[test][]",
+                        "in": "query",
+                        "description": "Values for attribute with name attrName2",
                         "schema": {
                             "type": "string"
                         }
@@ -651,15 +659,7 @@
                     {
                         "name": "attributes[name][]",
                         "in": "query",
-                        "description": "Attribute name2",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "attributes[name][]",
-                        "in": "query",
-                        "description": "Attribute name3",
+                        "description": "Values for attribute with name attrName3",
                         "schema": {
                             "type": "string"
                         }

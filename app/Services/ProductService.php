@@ -13,6 +13,7 @@ class ProductService
 {
     public function get(array $attributes, int $paginationCount): LengthAwarePaginator
     {
+
         $query = Product::query();
 
         foreach ($attributes as $attributeName => $attributeValues) {
