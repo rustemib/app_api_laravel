@@ -28,9 +28,9 @@ class ProductController extends Controller
     public function index(FilterRequest $request): AnonymousResourceCollection
     {
 
-        $attributes = $request->validated()->input('attributes');
+        $validated = $request->validated();
+        $attributes = $validated['attributes'] ?? [];
         $products = $this->productService->get($attributes, self::PAGINATION_COUNT);
-
         return ProductResource::collection($products);
     }
 

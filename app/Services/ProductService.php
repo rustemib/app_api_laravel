@@ -13,25 +13,25 @@ class ProductService
 {
     public function get(array $attributes, int $paginationCount): LengthAwarePaginator
     {
-
         $query = Product::query();
 
-        if (isset($attributes['name'])) {
-            $query->whereHas('attributeValues', function ($query) use ($attributes) {
-                $query->whereHas('attribute', function ($query) use ($attributes) {
-                    $query->where('name', $attributes['name']);
-                });
+        foreach ($attributes as $attributeName => $attributeValues) {
+            $query->whereHas('attributeValues', function ($query) use ($attributeName, $attributeValues) {
+                $query->whereHas('attribute', function ($query) use ($attributeName) {
+                    $query->where('name', $attributeName);
+                })->whereIn('value', (array)$attributeValues);
             });
         }
 
         $products = $query->with('attributeValues.attribute')->paginate($paginationCount);
 
-        if ($products->isEmpty() && isset($attributes['name'])) {
+        if ($products->isEmpty() && !empty($attributes)) {
             throw new \Exception(ErrorMessages::ATTRIBUTE_NOT_FOUND);
         }
 
         return $products;
     }
+
 
 
     public function store(StoreRequest $request): Product

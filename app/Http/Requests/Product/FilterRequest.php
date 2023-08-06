@@ -19,10 +19,12 @@ class FilterRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array|string>
      */
-    public function rules(): array
+    public function rules()
     {
         return [
-            'attributes.*.*' => 'string',
+            'attributes' => 'required|array',
+            'attributes.*' => 'array',
+            'attributes.*.*' => 'string'
         ];
     }
 }
