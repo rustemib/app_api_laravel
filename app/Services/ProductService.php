@@ -3,13 +3,15 @@
 namespace App\Services;
 
 use App\Exceptions\ErrorMessages;
+use App\Http\Requests\Product\StoreRequest;
+use App\Http\Requests\Product\UpdateRequest;
 use App\Models\Product;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 
 class ProductService
 {
-    public function get($attributes, $paginationCount): LengthAwarePaginator
+    public function get(array $attributes, int $paginationCount): LengthAwarePaginator
     {
 
         $query = Product::query();
@@ -32,18 +34,18 @@ class ProductService
     }
 
 
-    public function store($request): Product
+    public function store(StoreRequest $request): Product
     {
         return Product::create($request->validated());
     }
 
-    public function update($request, $product): Product
+    public function update(UpdateRequest $request, Product $product): Product
     {
         $product->update($request->validated());
         return $product;
     }
 
-    public function delete($product): bool
+    public function delete(Product $product): bool
     {
         return $product->delete();
     }

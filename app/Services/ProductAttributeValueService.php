@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Http\Requests\AttributeValue\StoreRequest;
+use App\Http\Requests\AttributeValue\UpdateRequest;
 use App\Models\ProductAttributeValue;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -12,12 +14,12 @@ class ProductAttributeValueService
         return ProductAttributeValue::all();
     }
 
-    public function store($request): ProductAttributeValue
+    public function store(StoreRequest $request): ProductAttributeValue
     {
         return ProductAttributeValue::create($request->validated());
     }
 
-    public function update($request, $value): ProductAttributeValue
+    public function update(UpdateRequest $request, ProductAttributeValue $value): ProductAttributeValue
     {
         $value->update($request->validated());
         return $value;

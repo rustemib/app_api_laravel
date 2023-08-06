@@ -17,17 +17,18 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
+    const PAGINATION_COUNT = 40;
     protected $productService;
 
     public function __construct(ProductService $productService)
     {
         $this->productService = $productService;
     }
-    const PAGINATION_COUNT = 40;
+
     public function index(FilterRequest $request): AnonymousResourceCollection
     {
 
-        $attributes = $request->input('attributes');
+        $attributes = $request->validated()->input('attributes');
         $products = $this->productService->get($attributes, self::PAGINATION_COUNT);
 
         return ProductResource::collection($products);

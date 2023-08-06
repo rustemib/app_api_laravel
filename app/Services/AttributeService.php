@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Http\Requests\Attribute\StoreRequest;
+use App\Http\Requests\Attribute\UpdateRequest;
 use App\Models\Attribute;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -13,12 +14,12 @@ class AttributeService
         return Attribute::all();
     }
 
-    public function store($request): Attribute
+    public function store(StoreRequest $request): Attribute
     {
         return Attribute::create($request->validated());
     }
 
-    public function update($request, $attribute): Attribute
+    public function update(UpdateRequest $request, Attribute $attribute): Attribute
     {
         $attribute->update($request->validated());
         return $attribute;
