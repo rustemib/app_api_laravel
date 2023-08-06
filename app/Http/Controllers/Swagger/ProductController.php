@@ -55,21 +55,21 @@ use App\Http\Controllers\Controller;
  *     security={{ "bearerAuth": {} }},
  *
  *     @OA\Parameter(
- *         name="attributes[test][]",
+ *         name="attributes[test1][]",
  *         in="query",
- *         description="Values for attribute with name attrName1",
+ *         description="Values for attribute with name test1",
  *         @OA\Schema(type="string"),
  *     ),
  *     @OA\Parameter(
- *         name="attributes[test][]",
+ *         name="attributes[test2][]",
  *         in="query",
- *         description="Values for attribute with name attrName2",
+ *         description="Values for attribute with name test2",
  *         @OA\Schema(type="string"),
  *     ),
  *     @OA\Parameter(
- *         name="attributes[name][]",
+ *         name="attributes[test3][]",
  *         in="query",
- *         description="Values for attribute with name attrName3",
+ *         description="Values for attribute with name test3",
  *         @OA\Schema(type="string"),
  *     ),
  *

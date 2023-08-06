@@ -641,25 +641,25 @@
                 "summary": "All Products",
                 "parameters": [
                     {
-                        "name": "attributes[test][]",
+                        "name": "attributes[test1][]",
                         "in": "query",
-                        "description": "Values for attribute with name attrName1",
+                        "description": "Values for attribute with name test1",
                         "schema": {
                             "type": "string"
                         }
                     },
                     {
-                        "name": "attributes[test][]",
+                        "name": "attributes[test2][]",
                         "in": "query",
-                        "description": "Values for attribute with name attrName2",
+                        "description": "Values for attribute with name test2",
                         "schema": {
                             "type": "string"
                         }
                     },
                     {
-                        "name": "attributes[name][]",
+                        "name": "attributes[test3][]",
                         "in": "query",
-                        "description": "Values for attribute with name attrName3",
+                        "description": "Values for attribute with name test3",
                         "schema": {
                             "type": "string"
                         }
